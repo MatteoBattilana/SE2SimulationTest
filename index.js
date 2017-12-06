@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-var port = 8080; // set our port
+var port = process.env.PORT || 8080; // set our portt
 
 app.use('/', rootRoutes);
 app.listen(port);
