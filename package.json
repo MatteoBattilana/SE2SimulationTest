@@ -12,5 +12,8 @@
     "express": "^4.16.2"
   },
   "devDependencies": {},
-  "description": ""
+  "description": "",
+  "scripts": {
+    "start": "node index.js"
+  }
 }
