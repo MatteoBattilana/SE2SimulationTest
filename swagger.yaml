@@ -1,0 +1,130 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: "AssignmentSE2"
+  description: A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Swagger API Team
+    email: foo@example.com
+    url: http://madskristensen.net
+  license:
+    name: MIT
+    url: http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT
+host: petstore.swagger.io
+basePath: /assignment
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /:
+    post:
+      description: |
+        Insert a new assignment into the DB
+        Nam sed condimentum est. Maecenas tempor sagittis sapien, nec rhoncus sem sagittis sit amet. Aenean at gravida augue, ac iaculis sem. Curabitur odio lorem, ornare eget elementum nec, cursus id lectus. Duis mi turpis, pulvinar ac eros ac, tincidunt varius justo. In hac habitasse platea dictumst. Integer at adipiscing ante, a sagittis ligula. Aenean pharetra tempor ante molestie imperdiet. Vivamus id aliquam diam. Cras quis velit non tortor eleifend sagittis. Praesent at enim pharetra urna volutpat venenatis eget eget mauris. In eleifend fermentum facilisis. Praesent enim enim, gravida ac sodales sed, placerat id erat. Suspendisse lacus dolor, consectetur non augue vel, vehicula interdum libero. Morbi euismod sagittis libero sed lacinia.
+        Sed tempus felis lobortis leo pulvinar rutrum. Nam mattis velit nisl, eu condimentum ligula luctus nec. Phasellus semper velit eget aliquet faucibus. In a mattis elit. Phasellus vel urna viverra, condimentum lorem id, rhoncus nibh. Ut pellentesque posuere elementum. Sed a varius odio. Morbi rhoncus ligula libero, vel eleifend nunc tristique vitae. Fusce et sem dui. Aenean nec scelerisque tortor. Fusce malesuada accumsan magna vel tempus. Quisque mollis felis eu dolor tristique, sit amet auctor felis gravida. Sed libero lorem, molestie sed nisl in, accumsan tempor nisi. Fusce sollicitudin massa ut lacinia mattis. Sed vel eleifend lorem. Pellentesque vitae felis pretium, pulvinar elit eu, euismod sapien.
+      operationId: addAssignment
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: info
+          description: The assigment to create.
+          schema:
+            type: object
+            required:
+              - assignement_type
+              - test_id
+              - student_id
+              - assignement_content
+            properties:
+              assignement_type:
+                type: string
+              test_id:
+                type: string
+              student_id:
+                type: string
+              assignement_content:
+                type: string
+        
+          
+      responses:
+        200:
+          description: assignment response
+          schema:
+            $ref: '#/definitions/OK'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /{task_id}:
+    get:
+      description: |
+        Returns all pets from the system that the user has access to
+        Nam sed condimentum est. Maecenas tempor sagittis sapien, nec rhoncus sem sagittis sit amet. Aenean at gravida augue, ac iaculis sem. Curabitur odio lorem, ornare eget elementum nec, cursus id lectus. Duis mi turpis, pulvinar ac eros ac, tincidunt varius justo. In hac habitasse platea dictumst. Integer at adipiscing ante, a sagittis ligula. Aenean pharetra tempor ante molestie imperdiet. Vivamus id aliquam diam. Cras quis velit non tortor eleifend sagittis. Praesent at enim pharetra urna volutpat venenatis eget eget mauris. In eleifend fermentum facilisis. Praesent enim enim, gravida ac sodales sed, placerat id erat. Suspendisse lacus dolor, consectetur non augue vel, vehicula interdum libero. Morbi euismod sagittis libero sed lacinia.
+        Sed tempus felis lobortis leo pulvinar rutrum. Nam mattis velit nisl, eu condimentum ligula luctus nec. Phasellus semper velit eget aliquet faucibus. In a mattis elit. Phasellus vel urna viverra, condimentum lorem id, rhoncus nibh. Ut pellentesque posuere elementum. Sed a varius odio. Morbi rhoncus ligula libero, vel eleifend nunc tristique vitae. Fusce et sem dui. Aenean nec scelerisque tortor. Fusce malesuada accumsan magna vel tempus. Quisque mollis felis eu dolor tristique, sit amet auctor felis gravida. Sed libero lorem, molestie sed nisl in, accumsan tempor nisi. Fusce sollicitudin massa ut lacinia mattis. Sed vel eleifend lorem. Pellentesque vitae felis pretium, pulvinar elit eu, euismod sapien.
+      operationId: findAssignment
+      parameters:
+        - name: task_id
+          in: path
+          description: ID of assignment to fetch
+          required: true
+          type: integer
+          format: int64
+          
+      responses:
+        200:
+          description: assignement response
+          schema:
+            items:
+              $ref: '#/definitions/Assignment'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+   
+definitions:
+  Assignment:
+    allOf:
+      - $ref: '#/definitions/AssigmentElement'
+            
+  OK:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        example: Stored in our DB
+  Error:
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+            
+  AssigmentElement:
+    required:
+      - assignment_type
+      - test_id
+      - student_id
+      - assignment_content
+    properties:
+      assignment_type:
+        type: string
+      
+      test_id:
+        type: string
+        
+      student_id:
+        type: string
+        
+      assignment_content:
+        type: string
